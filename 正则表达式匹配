@@ -1,0 +1,24 @@
+# 给定一个字符串 (s) 和一个字符模式 (p)。实现支持 '.' 和 '*' 的正则表达式匹配。'.' 匹配任意单个字符。'*' 匹配零个或多个前面的元素。
+class Solution(object):
+    def isMatch(self, s, p):
+        self.cache = [[None for _ in range(len(p) + 1)] for _ in range(len(s) + 1)]
+        return self.match(0, 0, s, p)
+
+    def match(self, i, j, s, p):
+        if self.cache[i][j] is not None:
+            return self.cache[i][j] is True
+        if j == len(p):
+            ans = (i == len(s))
+        else:
+            cur_match = (i < len(s)) and (s[i] == p[j] or p[j] == '.')
+            if j + 1 < len(p) and p[j + 1] == '*':
+                ans = (self.match(i, j + 2, s, p)) or (cur_match and self.match(i + 1, j, s, p))
+            else:
+                ans = cur_match and self.match(i+1, j+1, s, p)
+        self.cache[i][j] = True if ans else False
+        return ans
+# 测试例子
+s = 'aab'
+p = 'c*a*b'
+obj = Solution()
+print(obj.isMatch(s,p))
