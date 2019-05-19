@@ -1,0 +1,18 @@
+class Solution:
+    def reverseList(self, pHead: ListNode) -> ListNode:
+        if not pHead or not pHead.next:
+            return pHead
+        last = None
+        while pHead:
+            tmp = pHead.next
+            pHead.next = last
+            last = pHead
+            pHead = tmp
+        return last
+ # 蠕虫移动，先移和后移的顺序。后面的先跟上，前面的才能移动。       
+ class Solution:
+    def reverseList(self, head):
+        p, rev = head, None
+        while p:
+            rev, rev.next, p = p, rev, p.next
+        return rev
