@@ -1,0 +1,12 @@
+class solution:
+    def printListFromTailToHead(self, listNode):
+        result = []
+        while listNode:
+            result.insert(0,listNode.val)
+            listNode = listNode.next
+        return result
+    def printListFromTailToHead2(self,listNode):
+        if listNode:
+            if listNode.next:
+                self.printListFromTailToHead(listNode.next)
+        print(listNode.val)
