@@ -1,0 +1,25 @@
+# 快慢指针，如果快的指针指向None，说明无环，否则就必定会和慢指针相遇。相遇的点很特殊，这个点和初始头结点一块移动，相等时即为入口节点。可用逻辑推理。
+class Solution(object):
+    def detectCycle(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        if head and head.next:
+            slow = head.next
+            fast = head.next.next
+        else:
+            return None
+        while fast:
+            if slow != fast:
+                slow = slow.next
+                if fast.next:
+                    fast = fast.next.next
+                else:
+                    return None
+            else:
+                node = head
+                while node != slow:
+                    node = node.next
+                    slow = slow.next
+                return node
