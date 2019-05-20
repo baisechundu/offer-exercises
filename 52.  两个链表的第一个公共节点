@@ -1,0 +1,45 @@
+# 先得到两个链表的长度，让长的链表先走 相差的步数，然后两个链表一起遍历比较
+class Solution(object):
+    def getIntersectionNode(self, headA, headB):
+        """
+        :type head1, head1: ListNode
+        :rtype: ListNode
+        """
+        a=headA
+        b=headB
+        lena=0
+        lenb=0
+        while a:
+            a=a.next
+            lena+=1
+        while b:
+            b=b.next
+            lenb+=1
+        a=headA
+        b=headB
+        for i in range(abs(lenb-lena)):
+            if lenb>lena:
+                b=b.next
+            else:
+                a=a.next;
+        while a and b:
+            if a is b:
+                return a
+            else:
+                a=a.next
+                b=b.next
+# 还有种方法，两个链表分别首尾连接，然后遍历比较即可。时间上比上个优一些，空间复杂度高了点。
+class Solution(object):
+    def getIntersectionNode(self, headA, headB):
+        """
+        :type head1, head1: ListNode
+        :rtype: ListNode
+        """
+        if headA == None or headB == None:
+            return None
+        preA = headA
+        preB = headB
+        while preA != preB:
+            preA = preA.next if preA else headB
+            preB = preB.next if preB else headA
+        return preA
