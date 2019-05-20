@@ -1,0 +1,48 @@
+"""
+# Definition for a Node.
+class Node(object):
+    def __init__(self, val, next, random):
+        self.val = val
+        self.next = next
+        self.random = random
+"""
+class Solution(object):
+    def copyRandomList(self, head):
+        """
+        :type head: Node
+        :rtype: Node
+        """
+        self.copy(head)
+        self.connectRandom(head)
+        return self.split(head) if head else None
+    
+    def copy(self,head):
+        pre = head
+        while pre:
+            clone = ListNode(pre.val)
+            clone.next = pre.next
+            clone.random = None
+            pre.next = clone
+            pre = clone.next
+    def connectRandom(self,head):
+        pre = head
+        while pre:
+            clone = pre.next
+            if pre.random:
+                clone.random = pre.random.next
+            pre = clone.next
+    
+    def split(self,head):
+        pre = head
+        clonehead = Node(0,None,None)
+        clone = Node(0,None,None)
+        if pre:
+            clonehead = clone = pre.next
+            pre.next = clone.next
+            pre = pre.next
+        while pre:
+            clone.next = pre.next
+            clone = clone.next
+            pre.next = clone.next
+            pre = pre.next
+        return clonehead
