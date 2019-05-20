@@ -18,19 +18,27 @@ class Solution(object):
         
 # 删除链表中所有重复的元素，与上面的区别是： 重复的元素都删掉了，也就是一个都不保留。 排序链表
 # Definition for singly-linked list.
-# class ListNode:
+# class ListNode(object):
 #     def __init__(self, x):
 #         self.val = x
 #         self.next = None
 
-class Solution:
-    def deleteDuplicates(self, head: ListNode) -> ListNode:
-        res = ListNode('inf')
-        p = res
+class Solution(object):
+    def deleteDuplicates(self, head):
+        p = ListNode(0)     # 创建新链表头
         p.next = head
-        while p.next:
-            if p.val == p.next.val:
-                p.next = p.next.next
-            else:
+        head = p            # 新的链表头
+        
+        while p.next:       
+            left = p.next   # 左指针,p为当前节点的上一个节点
+            right = left    # 右指针
+            # 若值相同，则移动右指针，直到右指针下一个节点的值不同为止
+            while right.next and (right.next.val == left.val):  
+                right = right.next
+            if right == left:       # 左右指针相同，则表示不重复
                 p = p.next
-        return res.next
+            else:                   # 左右指针不同，则删除左节点到右节点之间的所有节点
+                p.next = right.next
+        
+        # 返回新链表头
+        return head.next
