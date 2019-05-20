@@ -1,0 +1,36 @@
+# 每次比较当前结点的值和下个节点的值，前提是下个节点不是None，相等的话当前节点指向下一个的下一个。排序链表，使链表内无重复元素
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+class Solution(object):
+    def deleteDuplicates(self, head):
+        res = ListNode('inf')
+        p = res
+        p.next = head
+        while p.next:
+            if p.val == p.next.val:
+                p.next = p.next.next
+            else:
+                p = p.next
+        return res.next
+        
+# 删除链表中所有重复的元素，与上面的区别是： 重复的元素都删掉了，也就是一个都不保留。 排序链表
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution:
+    def deleteDuplicates(self, head: ListNode) -> ListNode:
+        res = ListNode('inf')
+        p = res
+        p.next = head
+        while p.next:
+            if p.val == p.next.val:
+                p.next = p.next.next
+            else:
+                p = p.next
+        return res.next
