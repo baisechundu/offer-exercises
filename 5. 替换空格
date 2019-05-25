@@ -1,0 +1,33 @@
+# 需要额外的空间，
+# -*- coding:utf-8 -*-
+class Solution:
+    # s 源字符串
+    def replaceSpace(self, s):
+        res = s.replace(' ','%20')
+        return res
+        
+        
+#相当于上面的详细过程（好没意思哈）      
+# -*- coding:utf-8 -*-
+class Solution:
+    # s 源字符串
+    def replaceSpace(self, s):
+        res = ''
+        for i in s:
+            if i !=' ':
+                res += i
+            else:
+                res +='%20'
+        return res
+        
+class Solution:
+    # s 源字符串
+    def replaceSpace(self, s):
+        n = len(s)
+        count,res = 0,[]
+        for i in s:
+            if i == ' ':
+                res.extend(['%20'])
+            else:
+                res.append(i)
+        return ''.join(res)
