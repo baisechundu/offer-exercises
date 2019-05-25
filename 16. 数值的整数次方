@@ -1,0 +1,9 @@
+# -*- coding:utf-8 -*-
+class Solution:
+    def Power(self, base, exponent):
+   #     if base = 0.0 and exponent < 0:
+    #        return 0
+        res = 1.0
+        for _ in range(abs(exponent)):
+            res *= base
+        return res if exponent >= 0 else 1.0/res
