@@ -1,0 +1,33 @@
+# 从左下角开始，与目标做比较，偏大则上移，偏小则右移，相等即得答案。
+# -*- coding:utf-8 -*-
+class Solution:
+    # array 二维列表
+    def Find(self, target, array):
+        row = len(array)-1
+        col = len(array[0])-1
+        i, j = row, 0
+        while i >= 0 and j <= col:
+            if target > array[i][j]:
+                j += 1
+            elif target < array[i][j]:
+                i -= 1
+            else:
+                return True
+        return False
+
+# offer原答案：从右上角开始，调整i和j即可
+# -*- coding:utf-8 -*-
+class Solution:
+    # array 二维列表
+    def Find(self, target, array):
+        row = len(array)-1
+        col = len(array[0])-1
+        i, j = 0, col
+        while i <= row and j >= 0:
+            if target > array[i][j]:
+                i += 1
+            elif target < array[i][j]:
+                j -= 1
+            else:
+                return True
+        return False
