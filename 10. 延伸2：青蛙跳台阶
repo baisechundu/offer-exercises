@@ -1,0 +1,7 @@
+# -*- coding:utf-8 -*-
+class Solution:
+    def jumpFloorII(self, number):
+        a, b = 0,1
+        for i in range(number-1):
+            a,b = b,2*b
+        return b
