@@ -1,0 +1,19 @@
+# -*- coding:utf-8 -*-
+class Solution:
+    def VerifySquenceOfBST(self, sequence):
+        if not sequence:
+            return False
+        else:
+            return self.main(sequence)
+    def main(self, sequences):
+        if len(sequences)<=1:
+            return True
+        root = sequences.pop()
+        left, right = [], []
+        for i in sequences:
+            if i < root:
+                left.append(i)
+            else:
+                right.append(i)
+        test = (left+right == sequences)
+        return test and self.main(left) and self.main(right)
