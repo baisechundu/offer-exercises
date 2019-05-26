@@ -1,0 +1,42 @@
+巧妙利用 zip（*数组）的解法：
+# -*- coding:utf-8 -*-
+class Solution:
+    # matrix类型为二维列表，需要返回列表
+    def printMatrix(self, matrix):
+        res = []
+        while(len(matrix)!=0):
+            res += matrix[0]
+            matrix = [list(i) for i in zip(*[i[::-1] for i in matrix[1:]])]
+        return res
+        
+#传统方法，分两步：循环终止条件的判定，还有打印的顺序
+# -*- coding:utf-8 -*-
+class Solution:
+    # matrix类型为二维列表，需要返回列表
+    def printMatrix(self, matrix):
+        if matrix == None:
+            return
+        row, col, res = len(matrix), len(matrix[0]), []
+        start = 0
+        while row > start*2 and col > start*2:
+            res.extend(self.print_num(matrix, row, col, start))
+            start += 1
+        return res
+    def print_num(self, matrix, row, col, start):
+        row1 = start
+        row2 = row - start
+        col1 = start
+        col2 = col - start
+        res = []
+        for i in range(col1, col2):#从左到右打印
+            res.append(matrix[row1][i])
+        if row1 < row2 -1:
+            for j in range(row1 + 1, row2):#从上到下打印
+                res.append(matrix[j][col2-1])
+        if col1 < col2-1 and row1 < row2-1:
+            for i in range(col2 -2, col1-1, -1): #从右到左打印
+                res.append(matrix[row2-1][i])
+        if row1 + 2 < row2 and col1 < col2-1:
+            for j in range(row2-2, row1, -1):
+                res.append(matrix[j][col1])
+        return res
