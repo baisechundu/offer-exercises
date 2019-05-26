@@ -17,3 +17,23 @@ class Solution:
                 right.append(i)
         test = (left+right == sequences)
         return test and self.main(left) and self.main(right)
+
+# 和上面同样的方法，这种验证更优。
+# -*- coding:utf-8 -*-
+class Solution:
+    def VerifySquenceOfBST(self, sequence):
+        if not sequence:
+            return False
+        else:
+            return self.judge(sequence, 0, len(sequence)-1)
+    def judge(self,sequence, l, r):
+        if r-l <=1:
+            return True
+        root = sequence[r]
+        test = r-1
+        while test >= 0 and sequence[test] > root:
+            test -= 1
+        for i in range(l, test+1):
+            if sequence[i] > root:
+                return False
+        return self.judge(sequence, l, test) and self.judge(sequence, test+1, r-1)
