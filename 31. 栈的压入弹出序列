@@ -1,0 +1,17 @@
+# -*- coding:utf-8 -*-
+class Solution:
+    def IsPopOrder(self, pushV, popV):
+        stack = []
+        if not pushV or not popV:
+            return False
+        stack.append(pushV[0])
+        i = 1
+        while i <len(pushV) or stack:
+            while stack[-1] != popV[0]:
+                if i >= len(pushV):
+                    return False
+                stack.append(pushV[i])
+                i += 1
+            stack.pop()
+            popV.pop(0)
+        return True
