@@ -1,0 +1,23 @@
+# -*- coding:utf-8 -*-
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+class Solution:
+    # 返回从上到下每个节点值列表，例：[1,2,3]
+    def PrintFromTopToBottom(self, root):
+        if not root:
+            return []
+        res = []
+        stack = [root]
+        while stack:
+            next_num = []
+            for node in stack:
+                if node.left:
+                    next_num.append(node.left)
+                if node.right:
+                    next_num.append(node.right)
+                res.append(node.val)
+            stack = next_num
+        return res
