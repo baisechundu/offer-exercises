@@ -12,6 +12,7 @@ class Solution:
                         break
                     j += 1
         return array
+        
 #额外的空间 
 class Solution:
     def reOrderArray(self, array):
