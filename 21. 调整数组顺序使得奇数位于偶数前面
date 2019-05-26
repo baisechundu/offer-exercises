@@ -1,0 +1,26 @@
+# 不需要额外的空间，在原数组上移动即可。两个指针，一个为i，是寻找从左到右的第一个偶数，j是i之后的第一个奇数，两个都找到时即交换。交换时注意顺序。
+class Solution:
+    def reOrderArray(self, array):
+        n = len(array)
+        i, j = 0, 0
+        for i in range(n-1):
+            if array[i]%2==0:
+                j = i + 1
+                while j < n:
+                    if array[j] % 2 == 1:
+                        array[i], array[i+1:j+1] = array[j], array[i:j] #画图看即可
+                        break
+                    j += 1
+        return array
+#额外的空间 
+class Solution:
+    def reOrderArray(self, array):
+        res1 = []
+        res2 = []
+        for i in array:
+            if i%2!=0:
+                res1.append(i)
+            else:
+                res2.append(i)
+        res1.extend(res2)
+        return res1
