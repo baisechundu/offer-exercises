@@ -1,0 +1,36 @@
+# -*- coding:utf-8 -*-
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+class Solution:
+    # 返回ListNode
+    def ReverseList(self, pHead):
+        if not pHead or not pHead.next:
+            return pHead
+        tail = None
+        i = pHead
+        pre = None
+        while i:
+            temp = i.next
+            i.next = pre
+            pre = i
+            if temp == None:
+                tail = i
+            i = temp
+        return tail
+#相同的方法（蠕虫移动）
+class Solution:
+    # 返回ListNode
+    def ReverseList(self, pHead):
+        if not pHead or not pHead.next:
+            return pHead
+        tail = None
+        i, j = pHead, pHead.next
+        while j:
+            i.next = tail
+            tail = i
+            i = j
+            j = j.next
+        i.next = tail
+        return i
