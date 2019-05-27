@@ -1,0 +1,47 @@
+#暴力法，非常不推荐。时间复杂度太高。
+# -*- coding:utf-8 -*-
+class Solution:
+    def NumberOf1Between1AndN_Solution(self, n):
+        res = 0
+        for i in range(1,n+1):
+            res += self.test(i)
+        return res
+    def test(self, num):
+        count = 0
+        while num!=0:
+            if num%10==1:
+                count += 1
+            num //= 10
+        return count
+        
+#找规律，看offer分析，比较透彻。三步走战略：最高位比1大，那么最高位取1共有10**（len-1）位，然后非最高位运用排列组合的想法，
+#最高位*10**（len-2）*（len-1），剩下的递归即可。
+# -*- coding:utf-8 -*-
+class Solution:
+    def NumberOf1Between1AndN_Solution(self, n):
+        if n <= 0:
+            return 0
+        m = str(n)
+        return self.numberof(m)
+    def numberof(self, string):
+        if not string:
+            return 0
+        leng = len(string)
+        if leng == 1 and int(string) > 0:
+            return 1
+        if leng == 1 and int(string) == 0:
+            return 0
+        firstdigit = 0
+        if int(string[0]) > 1:
+            firstdigit = self.powerbase(leng-1)
+        elif int(string[0]) == 1:
+            firstdigit = int(string[1:])+ 1
+        otherdigit = int(string[0])*(leng-1)*(self.powerbase(leng-2))
+        numrecursive = self.numberof(string[1:])
+        return firstdigit + otherdigit + numrecursive  
+        
+    def powerbase(self, n):
+        res = 1
+        for i in range(n):
+            res *= 10
+        return res
