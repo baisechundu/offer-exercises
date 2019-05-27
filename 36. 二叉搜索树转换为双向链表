@@ -1,0 +1,47 @@
+# 递归版本：较为简单清晰。
+# -*- coding:utf-8 -*-
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+class Solution:
+    def Convert(self, pRootOfTree):
+        if not pRootOfTree:
+            return None
+        if not pRootOfTree.left and not pRootOfTree.right:
+            return pRootOfTree
+        left = self.Convert(pRootOfTree.left)
+        pcur = left
+        while left and pcur.right:
+            pcur = pcur.right
+        if left:
+            pcur.right = pRootOfTree
+            pRootOfTree.left = pcur
+        right = self.Convert(pRootOfTree.right)
+        if right:
+            right.left = pRootOfTree
+            pRootOfTree.right = right
+        return left if left else pRootOfTree
+        
+# 非递归版本，循环实现：
+class Solution:
+    def Convert(self, pRootOfTree):
+        if not pRootOfTree:
+            return None
+        stack,res = [], []
+        p = pRootOfTree
+        while p or stack:
+            while p:
+                stack.append(p)
+                p = p.left
+            p = stack.pop()
+            res.append(p)
+            p = p.right
+        head = res[0]
+        while res:
+            temp = res.pop(0)
+            if res:
+                temp.right = res[0]
+                res[0].left = temp
+        return head
