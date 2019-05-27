@@ -1,0 +1,34 @@
+# 失去了做题的意义
+# -*- coding:utf-8 -*-
+class Solution:
+    def GetLeastNumbers_Solution(self, tinput, k):
+        if len(tinput) < k or k==0:
+            return []
+        tinput.sort()
+        return tinput[:k]
+        
+# 插入排序，快速排序的思路：分别对应 offer上面的想法。本方法是插入排序。
+# -*- coding:utf-8 -*-
+class Solution:
+    def GetLeastNumbers_Solution(self, tinput, k):
+        if len(tinput) < k or k <= 0:
+            return []
+        stack = [tinput[0] for _ in range(k)]
+        for i in range(1,k):
+            j = i -1
+            while j >= 0 and stack[j] >= tinput[i]:
+                stack[j+1] = stack[j]
+                j -= 1
+            stack[j+1] = tinput[i]
+        for j in range(k,len(tinput)):
+            m = k - 1
+            while m >= 0 and stack[m] >= tinput[j]:
+                m -= 1
+            if m == k-2:
+                stack[m+1] = tinput[j]
+            if m < k-2:
+                stack[m+2:k+1], stack[m+1] = stack[m+1:k], tinput[j]
+        return stack[:k]
+        
+ # 快速排序
+ 
