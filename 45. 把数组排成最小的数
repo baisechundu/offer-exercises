@@ -1,0 +1,9 @@
+# 由于sort的调整，
+# -*- coding:utf-8 -*-
+class Solution:
+    def PrintMinNumber(self, numbers):
+        if not numbers:
+            return ''
+        new = list(map(str,numbers))
+        new.sort(cmp = lambda x,y: cmp(x+y,y+x))
+        return ''.join(new).lstrip() or '0'
