@@ -1,3 +1,4 @@
+#哈希表，字典存储，线性扫描两次。
 # -*- coding:utf-8 -*-
 class Solution:
     def FirstNotRepeatingChar(self, s):
@@ -9,5 +10,24 @@ class Solution:
                 dirc[s[i]] = 1
         for i in range(len(s)):
             if dirc[s[i]] == 1:
+                return i
+        return -1
+
+# 扫描，冒泡比较
+# -*- coding:utf-8 -*-
+class Solution:
+    def FirstNotRepeatingChar(self, s):
+        leng = len(s)
+        for i in range(leng-1):
+            found = True
+            for j in range(i+1,leng):
+                if s[i] == s[j]:
+                    found = False
+                    break
+            for k in range(i):
+                if s[i] == s[k]:
+                    found = False
+                    break
+            if found:
                 return i
         return -1
