@@ -1,0 +1,8 @@
+# 递归实现
+class Solution:
+    def TreeDepth(self, pRoot):
+        if not pRoot:
+            return 0
+        return max(self.TreeDepth(pRoot.left), self.TreeDepth(pRoot.right)) + 1
+      
+# 也可以用层次遍历实现，层数就是深度
