@@ -1,0 +1,9 @@
+# 因为是排序的，所以第一个输出的就是答案
+class Solution:
+    def FindNumbersWithSum(self, array, tsum):
+        res = []
+        for i in array:
+            if tsum-i in array:
+                res.extend([i,tsum-i])
+                break
+        return res
