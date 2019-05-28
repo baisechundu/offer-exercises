@@ -1,0 +1,20 @@
+# 用一个数组存储牌种类的数目。顺子需要满足三个条件：1. 除了大小王，其余牌的数目至多为1
+# 2. 牌里面最大值和最小值的差不超过5 3.必须满足五张牌
+# -*- coding:utf-8 -*-
+class Solution:
+    def IsContinuous(self, numbers):
+        if len(numbers)<5:
+            return False
+        class_num = [0 for _ in range(14)]
+        mins, maxs = 14, -1
+        for i in range(len(numbers)):
+            if numbers[i] == 0:
+                continue
+            class_num[numbers[i]] += 1
+            if class_num[numbers[i]] > 1:
+                return False
+            maxs = max(maxs, numbers[i])
+            mins = min(mins, numbers[i])
+        if maxs - mins < 5:
+            return True
+        return False
