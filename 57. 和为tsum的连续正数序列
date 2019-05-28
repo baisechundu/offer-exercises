@@ -1,0 +1,23 @@
+class Solution:
+    def FindContinuousSequence(self, tsum):
+        if tsum < 3:
+            return []
+        res = []
+        small = 1
+        big = 2
+        mid = (1 + tsum) / 2
+        curSum = small + big
+        while small < mid:
+            if curSum == tsum:
+                res.append(list(range(small, big + 1)))
+                small += 2
+                big += 1
+                curSum -= small * 2 - 3
+                curSum += big
+            elif curSum < tsum:
+                big += 1
+                curSum += big
+            else:
+                curSum -= small
+                small += 1
+        return res
