@@ -1,0 +1,30 @@
+# -*- coding:utf-8 -*-
+class Solution:
+    # 返回[a,b] 其中ab是出现一次的两个数字
+    def FindNumsAppearOnce(self, array): # 两个不同的数作异或，得到的数一定非0，那么其二进制中一定在某个位为1.根据这个位是否为1可将数组分类。
+        res = 0
+        for i in array:
+            res ^= i
+        index = self.findfirst(res)
+        stack1, stack2 = [], []
+        for i in array:
+            if self.isbit(i, index):
+                stack1.append(i)
+            else:
+                stack2.append(i)
+        res1, res2 = 0, 0
+        for j in stack1: # 此时数组只有一个数出现了一次，直接与0依次异或，可找到那个数。
+            res1 ^= j
+        for k in stack2:
+            res2 ^= k
+        return res1, res2
+    def findfirst(self, num): # 找到一个数最右边的二进制为1的位，注意不能溢出。
+        index = 0
+        while num & 1 == 0 and index < 32:
+            num = num >> 1
+            index += 1
+        return index
+    def isbit(self, num, index): #判断num属于哪一类？由此可将原数组分为两类，每一类都会有我们要得到的那个结果。不改变num，只改变test
+        test = 1
+        test = test << index
+        return (num & test) == test
