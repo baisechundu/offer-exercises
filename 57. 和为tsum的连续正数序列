@@ -21,3 +21,25 @@ class Solution:
                 curSum -= small
                 small += 1
         return res
+
+#自己写这种解法的时候，犯了一个超级大的错误。没有用copy数组复制stack，而是直接将stack连接到结果的后面，这就导致stack的变化间接影响了res数组。
+class Solution:
+    def FindContinuousSequence(self, tsum):
+        small, big, res = 1, 2, []
+        stack = [small, big]
+        total = 3
+        while 2 * big <= tsum + 1:
+            copy = [i for i in stack]
+            if total == tsum:
+                res.append(copy)
+                big += 1
+                stack.append(big)
+                total += big
+            elif total < tsum:
+                big += 1
+                stack.append(big)
+                total += big
+            else:
+                mins = stack.pop(0)
+                total -= mins
+        return res
