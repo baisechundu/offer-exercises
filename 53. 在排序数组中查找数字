@@ -1,0 +1,59 @@
+# index不太好用，没有default，又不想重新定义这个函数，时间复杂度应该都消耗在 in 上了。
+# -*- coding:utf-8 -*-
+class Solution:
+    def GetNumberOfK(self, data, k):
+        length = len(data)
+        first = data.index(k) if k in data else 0
+        last = data[::-1].index(k) if k in data else length
+        return length-last-first
+        
+#一次遍历就行，显然不太优，还不如上面的算法
+class Solution:
+    def GetNumberOfK(self, data, k):
+        count = 0
+        for i in data:
+            if i==k:
+                count += 1
+        return count
+        
+#较优的做法，二分查找：
+# -*- coding:utf-8 -*-
+class Solution:
+    def GetNumberOfK(self, data, k):
+        res = 0
+        leng = len(data)
+        if leng < 1:
+            return 0
+        first = self.getFirstk(data, 0, len(data)-1, k, leng)
+        last = self.getLastk(data, 0, len(data)-1, k, leng)
+        if first > -1 and last > -1:
+            res = last - first + 1
+        return res
+    def getFirstk(self, data, start, end, k, leng):
+        if start > end:
+            return -1
+        mid = start + (end-start)//2
+        if data[mid] == k:
+            if (mid > 0 and data[mid-1] < k) or mid==0:
+                return mid
+            else:
+                end = mid -1
+        elif data[mid] > k:
+            end = mid -1
+        else:
+            start = mid + 1
+        return self.getFirstk(data, start, end, k, leng)
+    def getLastk(self, data, start, end, k, leng):
+        if start > end:
+            return -1
+        mid = start + (end-start)//2
+        if data[mid] == k:
+            if (mid < leng-1 and data[mid+1] > k) or mid == leng-1:
+                return mid
+            else:
+                start = mid + 1
+        elif data[mid] > k:
+            end = mid -1
+        else:
+            start = mid + 1
+        return self.getLastk(data, start, end, k, leng)
