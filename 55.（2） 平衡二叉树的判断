@@ -1,0 +1,29 @@
+# 从上到下递归，空间时间消耗很大，可优化。
+class Solution:
+    def IsBalanced_Solution(self, pRoot):
+        if not pRoot:
+            return True
+        leftdepth = self.depth(pRoot.left)
+        rightdepth = self.depth(pRoot.right)
+        if abs(rightdepth - leftdepth)>1:
+            return False
+        return self.IsBalanced_Solution(pRoot.left) and self.IsBalanced_Solution(pRoot.right)
+    def depth(self, root):
+        if not root:
+            return 0
+        return max(self.depth(root.left), self.depth(root.right)) + 1
+        
+#从下到上递归，消耗变小，更优。
+class Solution:
+    def IsBalanced_Solution(self, pRoot):
+        return self.isbalanced(pRoot) != -1
+    def isbalanced(self, root):
+        if not root:
+            return 0
+        left = self.isbalanced(root.left)
+        if left == -1:
+            return -1
+        right = self.isbalanced(root.right)
+        if right == -1:
+            return -1
+        return 1 + max(left,right) if abs(right-left) <=1 else -1
