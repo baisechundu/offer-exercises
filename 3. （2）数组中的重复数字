@@ -1,0 +1,51 @@
+#在一个长度为n的数组里的所有数字都在0到n-1的范围内。 数组中某些数字是重复的，但不知道有几个数字是重复的。
+#也不知道每个数字重复几次。请找出数组中任意一个重复的数字。
+#例如，如果输入长度为7的数组{2,3,1,0,2,5,3}，那么对应的输出是第一个重复的数字2。
+
+# 排序后，线性扫描即可
+class Solution:
+    # 这里要特别注意~找到任意重复的一个值并赋值到duplication[0]
+    # 函数返回True/False
+    def duplicate(self, numbers, duplication):
+        if len(numbers) < 2:
+            return False
+        numbers.sort()
+        find = False
+        for i in range(1, len(numbers)):
+            if numbers[i] == numbers[i-1]:
+                duplication[0] = numbers[i]
+                find = True
+                break
+        return find
+        
+# 用哈希表存储，有重复的马上就输出
+class Solution:
+    # 这里要特别注意~找到任意重复的一个值并赋值到duplication[0]
+    # 函数返回True/False
+    def duplicate(self, numbers, duplication):
+        dirc = {}
+        find = False
+        for i in numbers:
+            if i not in dirc:
+                dirc[i] = 1
+            else:
+                duplication[0] = i
+                find = True
+                break
+        return find
+ # offer上面的做法       
+ class Solution: 
+    def duplicate(self, numbers, duplication):
+        cur = 0
+        while cur < len(numbers):
+            if numbers[cur] == cur:
+                cur += 1
+                continue
+            if numbers[cur] == numbers[numbers[cur]]:
+                duplication[0] = numbers[cur]
+                return True
+                # 注意这里不能直接multiple assignment 
+            temp = numbers[cur]            
+            numbers[cur] = numbers[numbers[cur]]
+            numbers[temp] = temp
+        return False
