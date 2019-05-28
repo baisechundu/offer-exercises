@@ -29,6 +29,8 @@ class Solution(object):
                 a=a.next
                 b=b.next
 # 还有种方法，两个链表分别首尾连接，然后遍历比较即可。时间上比上个优一些，空间复杂度高了点。
+# 两个链表分别首尾相连，同时遍历这两个新的链表，并比较即可。注意这里的三目运算，不是pre1.next，而是pre1，两个差别很大：
+# 前者当不存在公共节点时会陷入死循环，后者在不存在公共节点时会输出公共节点None，就是尾节点。也就是说，后者一定可以结束循环。
 class Solution(object):
     def getIntersectionNode(self, headA, headB):
         """
