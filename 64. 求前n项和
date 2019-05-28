@@ -1,0 +1,7 @@
+# 不能利用乘除，循环计算前n项和
+class Solution:
+    def Sum_Solution(self, n):
+        ans=n
+        temp=ans and self.Sum_Solution(n-1)
+        ans=ans+temp
+        return ans
