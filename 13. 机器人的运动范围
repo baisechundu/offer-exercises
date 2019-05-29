@@ -1,0 +1,27 @@
+#
+class Solution:
+    def movingCount(self, threshold, rows, cols):
+        if threshold<0 or rows <= 0 or cols <= 0:
+            return 0
+        visited = [False for _ in range(rows * cols)]
+        return self.Count(threshold, rows, cols, 0, 0, visited)
+    def sums(self, num):
+        res = 0
+        while num > 9:
+            res += num%10
+            num //= 10
+        res += num
+        return res
+    def check(self, threshold, rows, cols, row, col, visited):
+        if 0 <= row < rows and 0 <= col < cols and self.sums(col)+self.sums(row)<=threshold and not visited[cols*row+col]:
+            return True
+        return False
+    def Count(self, threshold, rows, cols, row, col, visited):
+        count = 0
+        if self.check(threshold, rows, cols, row, col, visited):
+            visited[cols*row+col] = True
+            count = 1 + self.Count(threshold, rows, cols, row-1, col, visited)
+            + self.Count(threshold, rows, cols, row+1, col, visited) 
+            + self.Count(threshold, rows, cols, row, col-1, visited) 
+            + self.Count(threshold, rows, cols, row, col+1, visited)
+        return count
