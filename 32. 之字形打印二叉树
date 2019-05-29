@@ -1,0 +1,25 @@
+#请实现一个函数按照之字形打印二叉树，即第一行按照从左到右的顺序打印，第二层按照从右至左的顺序打印，第三行按照从左到右的顺序打印，其他行以此类推。
+# 写了很多次了，这次也没卡壳，一遍就过了。现在有个习惯没纠正好，不爱写注释，不会起名字。哎，慢慢来吧。
+class Solution:
+    def Print(self, pRoot):
+        if not pRoot:
+            return []
+        res = []
+        stack = [pRoot]
+        flag = 1
+        while stack:
+            record = []
+            next_node = []
+            for i in stack:
+                if i.left:
+                    next_node.append(i.left)
+                if i.right:
+                    next_node.append(i.right)
+                record.append(i.val)
+            if flag:
+                res.append(record)
+            else:
+                res.append(record[::-1])
+            flag = 1 - flag
+            stack = next_node
+        return res
