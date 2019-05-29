@@ -23,3 +23,25 @@ class Solution(object):
                     node = node.next
                     slow = slow.next
                 return node
+                
+ # 思路是一样的：初始化快慢指针指向头结点，快指针一次走两步，慢的一次走一步。相遇时的节点很重要，记做node，则令头结点和node同时走，相遇的节点即为所求。
+ # 设链长为 L，环长为K，快慢指针相遇的节点位置距离环入口点长度为 m,则有： L+m = 2*（L-K+m）得到 L-k = k-m。这个等式正好就是代码的最后几步。
+class Solution:
+    def EntryNodeOfLoop(self, pHead):
+        fast, slow = pHead, pHead
+        if fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        else:
+            return None
+        while fast!=slow:
+            if fast.next:
+                slow = slow.next
+                fast = fast.next.next
+            else:
+                return None
+        pre = pHead
+        while pre != slow:
+            pre = pre.next
+            slow = slow.next
+        return pre
