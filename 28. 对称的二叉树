@@ -1,0 +1,15 @@
+#请实现一个函数，用来判断一颗二叉树是不是对称的。注意，如果一个二叉树同此二叉树的镜像是同样的，定义其为对称的。
+# 第一次用递归实现，一次就过了，surprise！慢慢学递归哈！
+class Solution:
+    def isSymmetrical(self, pRoot):
+        if not pRoot:
+            return True
+        return self.sym(pRoot.left, pRoot.right)
+        
+    def sym(self, tree1, tree2):
+        if not tree1:
+            return not tree2
+        if tree1 and tree2:
+            if tree1.val == tree2.val:
+                return self.sym(tree1.left, tree2.right) and self.sym(tree1.right,tree2.left)
+        return False
