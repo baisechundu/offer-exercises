@@ -1,0 +1,42 @@
+#请实现一个函数用来找出字符流中第一个只出现一次的字符。
+#例如，当从字符流中只读出前两个字符"go"时，第一个只出现一次的字符是"g"。当从该字符流中读出前六个字符“google"时，第一个只出现一次的字符是"l"。
+class Solution:
+    # 返回对应char
+    def __init__(self):
+        self.char_list = [-1 for i in range(256)]
+        self.index = 0  # 记录当前字符的个数，可以理解为输入的字符串中的下标
+    def FirstAppearingOnce(self):
+        min_value = 'inf'
+        min_idx = -1
+        for i in range(256):
+            if self.char_list[i] > -1:
+                if self.char_list[i] < min_value:
+                    min_value = self.char_list[i]
+                    min_idx = i
+        if min_idx > -1:
+            return chr(min_idx)
+        else:
+            return '#'
+    def Insert(self, char):
+        # 如果是第一出现，则将对应元素的值改为下边
+        if self.char_list[ord(char)] == -1:
+            self.char_list[ord(char)] = self.index
+            # 如果已经出现过两次了，则不修改
+        elif self.char_list[ord(char)] == -2:
+            pass
+        # 如果出现过一次，则进行修改，修改为-2
+        else:
+            self.char_list[ord(char)] = -2
+        self.index += 1
+        
+        
+ # 用filter函数筛选也可以
+ class Solution:
+    # 返回对应char
+    def __init__(self):
+        self.s = ''
+    def FirstAppearingOnce(self):
+        res = list(filter(lambda x: self.s.count(x)==1, self.s))
+        return res[0] if res else '#'
+    def Insert(self, char):
+        self.s += char
