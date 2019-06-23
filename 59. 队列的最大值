@@ -11,3 +11,20 @@ class Solution:
         for i in range(length-size+1):
             res.append(max(num[i:i+size]))
         return res
+
+#最优解法：一次遍历即可
+# -*- coding:utf-8 -*-
+class Solution:
+    def maxInWindows(self, num, size):
+        if not num or size <1:
+            return []
+        window, res = [], []
+        for i, x in enumerate(num):
+            if i >= size and window[0] <= i-size: # 滑动窗口的规律，一旦window储存的索引值不符合窗口长度，就删除首项。
+                window.pop(0)
+            while window and num[window[-1]] <= x: # 在正常window的索引中删除比当前值小的索引，以后的结果只保留window中最大的值
+                window.pop()
+            window.append(i)
+            if i >= size-1:
+                res.append(num[window[0]])
+        return res
